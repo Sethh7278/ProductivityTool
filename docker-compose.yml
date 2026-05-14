@@ -1,0 +1,26 @@
+# The docker compose file is used to run multiple containers in one go, saving the time needed to load up and run multiple different imagesservices:
+# Services is all of the images we need to build
+services:
+  backend:
+    build: ./backend
+    # Ports as the backend requires port forwarding
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app:/app/app
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/productivity_db
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: productivity_db
+      # Volumes is a file docker can access to save data from our containers and share it with other containers allowing communication between containers
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
