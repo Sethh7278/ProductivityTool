@@ -12,6 +12,15 @@ services:
       - db
     environment:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/productivity_db
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
   db:
     image: postgres:16
     environment:
