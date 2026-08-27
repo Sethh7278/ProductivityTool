@@ -31,7 +31,7 @@ def get_tasks():
         tasks = session.scalars(T).all()
         return tasks
 
-@router.delete("/tasks/{task_id}")
+@router.delete("/Delete-Task/{task_id}")
 # Deleting task and ensuring task_id is an int
 def delete_task(task_id: int):
     # Querying to find the instance that has the ID
